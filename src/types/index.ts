@@ -1,0 +1,32 @@
+export * from "./global";
+export * from "./types.level";
+export * from "./types.user";
+export * from "./types.grammarQuiz";
+export * from "./types.webSettings";
+export * from "./types.assistant";
+export * from "./types.ticket";
+
+export type TCategory = {
+  id: number;
+  title: string;
+  img: string;
+  subCategories: TSubCategory[];
+};
+
+export type TSubCategory = {
+  id: number;
+  title: string;
+  img: string;
+  totalCoins: number;
+  entryFee: number;
+  categoryId: number;
+  quizes: TQuiz[];
+};
+
+export type TQuiz = {
+  id: number;
+  question: string;
+  answer: string[];
+  correctAnswer: string;
+  subCategoryId: number;
+};
