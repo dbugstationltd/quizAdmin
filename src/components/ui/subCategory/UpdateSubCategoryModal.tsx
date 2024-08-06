@@ -8,7 +8,6 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import handleAsyncToast from "../../../utils/handleAsyncToast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import RCSelect from "../../form/RCSelect";
-import objectToFormData from "../../../utils/objectToFormData";
 import { useGetAllCategoryQuery } from "../../../redux/features/category/categoryApi";
 import { useUpdateSubCategoryMutation } from "../../../redux/features/subCategory/subCategoryApi";
 
@@ -33,14 +32,13 @@ const UpdateSubCategoryModal = ({ open, setOpen, data }: TProps) => {
   const defaultData = {
     title: data.title || "",
     categoryId: data.categoryId || null,
-    totalPoints: data.totalCoins || 10000,
+    totalPoints: data.totalPoints || 10000,
     entryFee: data.entryFee || 100,
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-    const formData = objectToFormData(values);
     await handleAsyncToast({
-      promise: updateSubCategory({ id: data.id, data: formData }).unwrap(),
+      promise: updateSubCategory({ id: data.id, data: values }).unwrap(),
       success: () => {
         setOpen(false);
         return "Sub category updated successfully!";

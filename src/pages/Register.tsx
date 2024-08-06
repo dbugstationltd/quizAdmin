@@ -13,7 +13,6 @@ import { useAppDispatch } from "../redux/hooks";
 import { login } from "../redux/features/auth/authSlice";
 import { useGetWebSettingsQuery } from "../redux/features/webSettings/webSettingsApi";
 import HeaderTitle from "../components/seo/HeaderTitle";
-import { countryOptions, phoneCodeOptions } from "../constants";
 
 const defaultData = {
   name: "",
@@ -126,28 +125,7 @@ const Register = () => {
                   placeholder="********"
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
-                <RCSelect name="country" label="Country" items={countryOptions} />
-              </Grid>
-              <Grid item xs={12}>
-                <Stack direction="row" gap="12px">
-                  <Box width="130px">
-                    <RCSelect
-                      name="code"
-                      label="Country Code"
-                      placeholder="+880"
-                      items={phoneCodeOptions}
-                    />
-                  </Box>
-                  <Box flex={1}>
-                    <RCInput
-                      name="number"
-                      label="Phone Number"
-                      placeholder="12345678"
-                    />
-                  </Box>
-                </Stack>
-              </Grid>
+
               <Grid item xs={12} md={6}>
                 <RCSelect
                   name="additional_contact_type"

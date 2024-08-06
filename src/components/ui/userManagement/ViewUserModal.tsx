@@ -7,7 +7,6 @@ import icon3 from "../../../assets/icon/total_xps.svg";
 import RCForm from "../../form/RCForm";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import RCInput from "../../form/RCInput";
-import { countryOptions, phoneCodeOptions } from "../../../constants";
 import RCSelect from "../../form/RCSelect";
 
 type TProps = {
@@ -68,14 +67,7 @@ const ViewUserModal = ({ isOpen, setIsOpen, data }: TProps) => {
                     style={{ borderRadius: "8px" }}
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <RCSelect
-                    name="country"
-                    label="Country"
-                    items={countryOptions}
-                    readOnly
-                  />
-                </Grid>
+               
                 <Grid item xs={12}>
                   <RCSelect
                     name="gender"
@@ -97,27 +89,7 @@ const ViewUserModal = ({ isOpen, setIsOpen, data }: TProps) => {
                 <Grid item xs={12}>
                   <RCInput name="email" label="Email" type="email" readOnly />
                 </Grid>
-                <Grid item xs={12}>
-                  <Stack direction="row" gap="12px">
-                    <Box width="130px">
-                      <RCSelect
-                        name="code"
-                        label="Country Code"
-                        placeholder="+880"
-                        items={phoneCodeOptions}
-                        readOnly
-                      />
-                    </Box>
-                    <Box flex={1}>
-                      <RCInput
-                        name="number"
-                        label="Phone Number"
-                        placeholder="12345678"
-                        readOnly
-                      />
-                    </Box>
-                  </Stack>
-                </Grid>
+               
                 <Grid item xs={12}>
                   <RCInput
                     name="nativeLanguage"

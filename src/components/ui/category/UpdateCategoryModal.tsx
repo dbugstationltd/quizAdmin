@@ -9,6 +9,7 @@ import handleAsyncToast from "../../../utils/handleAsyncToast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUpdateCategoryMutation } from "../../../redux/features/category/categoryApi";
 import RCFileUploader from "../../form/RCFileUploader";
+import objectToFormData from "../../../utils/objectToFormData";
 
 type TProps = {
   open: boolean;
@@ -20,8 +21,9 @@ const UpdateCategoryModal = ({ open, setOpen, data }: TProps) => {
   const [updateCategory] = useUpdateCategoryMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+    const formData = objectToFormData(values);
     await handleAsyncToast({
-      promise: updateCategory({ id: data.id, data: values }).unwrap(),
+      promise: updateCategory({ id: data.id, data: formData }).unwrap(),
       success: () => {
         setOpen(false);
         return "Category updated successfully!";

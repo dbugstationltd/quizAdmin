@@ -1,30 +1,34 @@
-import { useState } from "react";
-import { TGrammarQuiz } from "../types";
-import { GridColDef, GridValidRowModel } from "@mui/x-data-grid";
+import { useParams } from "react-router-dom";
 import { Box, Button, IconButton, Stack } from "@mui/material";
+import PageTitle from "../components/ui/shared/PageTitle";
+import MyDataGrid from "../components/dataGrid/MyDataGrid";
+import { useState } from "react";
+import { TQuiz } from "../types";
+import { GridColDef, GridValidRowModel } from "@mui/x-data-grid";
 import {
   DeleteRounded,
   DriveFileRenameOutlineRounded,
   VisibilityRounded,
 } from "@mui/icons-material";
 import handleAsyncToast from "../utils/handleAsyncToast";
-import PageTitle from "../components/ui/shared/PageTitle";
-import MyDataGrid from "../components/dataGrid/MyDataGrid";
-import { useDeleteGrammarQuizzMutation, useGetGrammarQuizzQuery } from "../redux/features/contentManagement/grammarQuizz/grammarQuizzApi";
-import AddQuizzModal from "../components/ui/contentManagement/grammarQuizz/AddQuizzModal";
-import UpdateQuizzModal from "../components/ui/contentManagement/grammarQuizz/UpdateQuizzModal";
-import ViewQuizzModal from "../components/ui/contentManagement/grammarQuizz/ViewQuizzModal";
+import { useGetSingleSubCategoryQuery } from "../redux/features/subCategory/subCategoryApi";
+import AddQuizModal from "../components/ui/quiz/AddQuizModal";
+import UpdateQuizModal from "../components/ui/quiz/UpdateQuizModal";
+import { useDeleteQuizMutation } from "../redux/features/quiz/quizApi";
+import ViewQuizModal from "../components/ui/quiz/ViewQuizModal";
 
-const GrammerQuizzes = () => {
+const Quiz = () => {
+  const { id } = useParams();
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
-  const [modalData, setModalData] = useState<TGrammarQuiz>();
+  const [modalData, setModalData] = useState<TQuiz>();
+  const { data, isLoading } = useGetSingleSubCategoryQuery(id as string);
+  const [deleteQuiz] = useDeleteQuizMutation();
 
-  const { data, isLoading } = useGetGrammarQuizzQuery(undefined);
-  const [deleteGrammarQuizz] = useDeleteGrammarQuizzMutation();
+  const rowsData: GridValidRowModel[] = data?.data.quizes || [];
 
-  const columns: GridColDef<TGrammarQuiz>[] = [
+  const columns: GridColDef<TQuiz>[] = [
     {
       field: "question",
       headerName: "Question",
@@ -32,23 +36,28 @@ const GrammerQuizzes = () => {
       flex: 1,
     },
     {
-      field: "rightAnswer",
-      headerName: "Right Answer",
+      field: "answer",
+      headerName: "Answers",
       minWidth: 150,
       flex: 1,
     },
     {
-      field: "tips",
-      headerName: "Tips",
+      field: "correctAnswer",
+      headerName: "Correct Answers",
       minWidth: 150,
       flex: 1,
     },
     {
       field: "action",
       headerName: "Action",
-      headerAlign: 'right',
+      headerAlign: "right",
       renderCell: ({ row }) => (
-        <Stack direction="row" justifyContent='end' alignItems="center" height="100%">
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="end"
+          height="100%"
+        >
           <IconButton onClick={() => handleViewModal(row)} aria-label="view">
             <VisibilityRounded color="primary" />
           </IconButton>
@@ -65,30 +74,28 @@ const GrammerQuizzes = () => {
     },
   ];
 
-  const handleViewModal = (data: TGrammarQuiz) => {
+  const handleViewModal = (data: TQuiz) => {
     setModalData(data);
     setIsViewModalOpen(true);
   };
-  const handleEditModal = (data: TGrammarQuiz) => {
+  const handleEditModal = (data: TQuiz) => {
     setModalData(data);
     setIsEditModalOpen(true);
   };
-  const handleDelete = async (id: number) => {
-    handleAsyncToast({
-      promise: deleteGrammarQuizz(id).unwrap(),
+  const handleDelete = async (qId: number) => {
+    await handleAsyncToast({
+      promise: deleteQuiz({ id: qId, SCId: id }).unwrap(),
       success: () => {
-        return "Grammar quizz deleted successfully!";
+        return "Quiz deleted successfully!";
       },
     });
   };
 
-  const rowsData: GridValidRowModel[] = data?.data || [];
-
   return (
     <>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <PageTitle title="Grammar Quizz" />
-        <Button onClick={() => setIsAddModalOpen(true)}>Add Quizz</Button>
+        <PageTitle title={data?.data.title as string} />
+        <Button onClick={() => setIsAddModalOpen(true)}>Add Quiz</Button>
       </Stack>
       <Box
         mt="20px"
@@ -99,23 +106,23 @@ const GrammerQuizzes = () => {
       >
         <MyDataGrid rows={rowsData} columns={columns} loading={isLoading} />
       </Box>
-      <AddQuizzModal open={isAddModalOpen} setOpen={setIsAddModalOpen} />
-      {isEditModalOpen && (
-        <UpdateQuizzModal
-          open={isEditModalOpen}
-          setOpen={setIsEditModalOpen}
-          data={modalData as TGrammarQuiz}
-        />
-      )}
+      <AddQuizModal open={isAddModalOpen} setOpen={setIsAddModalOpen} />
       {isViewModalOpen && (
-        <ViewQuizzModal
+        <ViewQuizModal
           open={isViewModalOpen}
           setOpen={setIsViewModalOpen}
-          data={modalData as TGrammarQuiz}
+          data={modalData as TQuiz}
+        />
+      )}
+      {isEditModalOpen && (
+        <UpdateQuizModal
+          open={isEditModalOpen}
+          setOpen={setIsEditModalOpen}
+          data={modalData as TQuiz}
         />
       )}
     </>
   );
 };
 
-export default GrammerQuizzes;
+export default Quiz;

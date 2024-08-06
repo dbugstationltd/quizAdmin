@@ -3,11 +3,10 @@ import RCForm from "../../form/RCForm";
 import RCInput from "../../form/RCInput";
 import RCModal from "../../modal/RCModal";
 import RCSelect from "../../form/RCSelect";
-import { Box, Button, Grid, Stack } from "@mui/material";
+import { Button, Grid, Stack } from "@mui/material";
 import RCFileUploader from "../../form/RCFileUploader";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UpdateUserValidation } from "../../../schemas";
-import { countryOptions, phoneCodeOptions } from "../../../constants";
 import objectToFormData from "../../../utils/objectToFormData";
 import handleAsyncToast from "../../../utils/handleAsyncToast";
 import { TUser } from "../../../types";
@@ -64,9 +63,7 @@ const UpdateUserModal = ({ isOpen, setIsOpen, data }: TProps) => {
             <Grid item xs={12} md={6}>
               <RCInput name="password" label="Password" />
             </Grid>
-            <Grid item xs={12} md={6}>
-              <RCSelect name="country" label="Country" items={countryOptions} />
-            </Grid>
+
             <Grid item xs={12} md={6}>
               <RCSelect
                 name="gender"
@@ -79,25 +76,6 @@ const UpdateUserModal = ({ isOpen, setIsOpen, data }: TProps) => {
             </Grid>
             <Grid item xs={12} md={6}>
               <RCInput name="nativeLanguage" label="Native Language" />
-            </Grid>
-            <Grid item xs={12}>
-              <Stack direction="row" gap="12px">
-                <Box width="130px">
-                  <RCSelect
-                    name="code"
-                    label="Country Code"
-                    placeholder="+880"
-                    items={phoneCodeOptions}
-                  />
-                </Box>
-                <Box flex={1}>
-                  <RCInput
-                    name="number"
-                    label="Phone Number"
-                    placeholder="12345678"
-                  />
-                </Box>
-              </Stack>
             </Grid>
             <Grid item xs={12}>
               <RCFileUploader name="photo" label="User Image" />

@@ -1,3 +1,4 @@
+import { TResponseRedux, TSubCategory } from "../../../types";
 import baseApi from "../../api/baseApi";
 
 const subCategoryApi = baseApi.injectEndpoints({
@@ -11,17 +12,19 @@ const subCategoryApi = baseApi.injectEndpoints({
       invalidatesTags: ["subCategory"],
     }),
 
-    getAllSubCategory: builder.query({
-      query: () => {
-        return {
-          url: `/adminSubCategories`,
-          method: "GET",
-        };
-      },
-      providesTags: ["category"],
-    }),
+    getAllSubCategory: builder.query<TResponseRedux<TSubCategory[]>, undefined>(
+      {
+        query: () => {
+          return {
+            url: `/adminSubCategories`,
+            method: "GET",
+          };
+        },
+        providesTags: ["subCategory"],
+      }
+    ),
 
-    getSingleSubCategory: builder.query({
+    getSingleSubCategory: builder.query<TResponseRedux<TSubCategory>, string>({
       query: (id) => {
         return {
           url: `/adminSubCategories/${id}`,
@@ -39,7 +42,10 @@ const subCategoryApi = baseApi.injectEndpoints({
           body: data,
         };
       },
-      invalidatesTags: (_, __, id) => [{ type: "subCategory", id }],
+      invalidatesTags: (_, __, { id }) => [
+        { type: "subCategory" },
+        { type: "subCategory", id },
+      ],
     }),
 
     deleteSubCategory: builder.mutation({
@@ -47,7 +53,10 @@ const subCategoryApi = baseApi.injectEndpoints({
         url: `/adminSubCategories/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (_, __, id) => [{ type: "subCategory", id }],
+      invalidatesTags: (_, __, id) => [
+        { type: "subCategory" },
+        { type: "subCategory", id },
+      ],
     }),
   }),
 });

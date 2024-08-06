@@ -16,7 +16,7 @@ import {
   useDeleteSubCategoryMutation,
   useGetAllSubCategoryQuery,
 } from "../redux/features/subCategory/subCategoryApi";
-import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SubCategory = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
@@ -41,9 +41,8 @@ const SubCategory = () => {
           <img
             src={`${import.meta.env.VITE_IMG_URL}/category/${row.img}`}
             alt="icon"
-            width={30}
-            height={30}
-            style={{ borderRadius: "4px" }}
+            width={44}
+            height={44}
           />
         </Stack>
       ),
@@ -53,6 +52,7 @@ const SubCategory = () => {
     {
       field: "category",
       headerName: "Category",
+      renderCell: ({ row }) => row.category.title,
       minWidth: 100,
       flex: 1,
     },
@@ -67,12 +67,11 @@ const SubCategory = () => {
           alignItems="center"
           height="100%"
         >
-          <IconButton
-            onClick={() => <Navigate to={`/sub-category/${row.id}`} />}
-            aria-label="view"
-          >
-            <VisibilityRounded color="primary" />
-          </IconButton>
+          <Link to={`/sub-category/${row.id}`}>
+            <IconButton aria-label="view">
+              <VisibilityRounded color="primary" />
+            </IconButton>
+          </Link>
           <IconButton onClick={() => handleEditModal(row)} aria-label="view">
             <DriveFileRenameOutlineRounded color="success" />
           </IconButton>

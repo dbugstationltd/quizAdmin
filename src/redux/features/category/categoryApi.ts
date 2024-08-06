@@ -40,7 +40,7 @@ const categoryApi = baseApi.injectEndpoints({
           body: data,
         };
       },
-      invalidatesTags: (_, __, id) => [{ type: "category", id }],
+      invalidatesTags: ["category"],
     }),
 
     deleteCategory: builder.mutation({
@@ -48,7 +48,7 @@ const categoryApi = baseApi.injectEndpoints({
         url: `/adminCategories/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (_, __, id) => [{ type: "level", id }],
+      invalidatesTags: ["category"],
     }),
   }),
 });

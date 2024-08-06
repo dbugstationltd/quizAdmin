@@ -42,6 +42,8 @@ const Category = () => {
           <img
             src={`${import.meta.env.VITE_IMG_URL}/category/${row.img}`}
             alt="icon"
+            width={44}
+            height={44}
           />
         </Stack>
       ),
@@ -88,7 +90,7 @@ const Category = () => {
   return (
     <>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <PageTitle title="Assistant Category" />
+        <PageTitle title="Category" />
         <Button onClick={() => setIsAddModalOpen(true)}>Add Category</Button>
       </Stack>
       <Box

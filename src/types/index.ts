@@ -17,9 +17,10 @@ export type TSubCategory = {
   id: number;
   title: string;
   img: string;
-  totalCoins: number;
+  totalPoints: number;
   entryFee: number;
   categoryId: number;
+  category: TCategory;
   quizes: TQuiz[];
 };
 
@@ -28,5 +29,6 @@ export type TQuiz = {
   question: string;
   answer: string[];
   correctAnswer: string;
+  coins: number,
   subCategoryId: number;
 };

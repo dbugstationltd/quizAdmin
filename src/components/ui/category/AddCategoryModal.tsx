@@ -8,6 +8,7 @@ import handleAsyncToast from "../../../utils/handleAsyncToast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddCategoryMutation } from "../../../redux/features/category/categoryApi";
 import RCFileUploader from "../../form/RCFileUploader";
+import objectToFormData from "../../../utils/objectToFormData";
 
 type TProps = {
   open: boolean;
@@ -18,8 +19,9 @@ const AddCategoryModal = ({ open, setOpen }: TProps) => {
   const [addCategory] = useAddCategoryMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+    const formData = objectToFormData(values);
     await handleAsyncToast({
-      promise: addCategory(values).unwrap(),
+      promise: addCategory(formData).unwrap(),
       success: () => {
         setOpen(false);
         return "Category added successfully!";
@@ -31,12 +33,12 @@ const AddCategoryModal = ({ open, setOpen }: TProps) => {
     <RCModal open={open} setOpen={setOpen} title="Add Category">
       <RCForm
         onSubmit={onSubmit}
-        defaultValues={{ name: "", img: undefined }}
+        defaultValues={{ title: "", img: undefined }}
         resolver={zodResolver(AddCategoryValidation)}
       >
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <RCInput name="name" label="Name" />
+            <RCInput name="title" label="Title" />
           </Grid>
           <Grid item xs={12}>
             <RCFileUploader name="img" label="Icon" />

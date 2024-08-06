@@ -3,12 +3,12 @@ import baseApi from "../../api/baseApi";
 const quizApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     addQuiz: builder.mutation({
-      query: (data) => ({
+      query: ({ data }) => ({
         url: `/adminQuizes`,
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["quiz"],
+      invalidatesTags: (_, __, { id }) => [{ type: "subCategory", id }],
     }),
 
     getAllQuiz: builder.query({
@@ -50,10 +50,7 @@ const quizApi = baseApi.injectEndpoints({
         url: `/adminQuizes/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (_, __, { id, SCId }) => [
-        { type: "quiz", id },
-        { type: "subCategory", id: SCId },
-      ],
+      invalidatesTags: (_, __, { SCId }) => [{ type: "subCategory", id: SCId }],
     }),
   }),
 });

@@ -7,7 +7,6 @@ import RCInput from "../../form/RCInput";
 import handleAsyncToast from "../../../utils/handleAsyncToast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import RCSelect from "../../form/RCSelect";
-import objectToFormData from "../../../utils/objectToFormData";
 import { useGetAllCategoryQuery } from "../../../redux/features/category/categoryApi";
 import { useAddSubCategoryMutation } from "../../../redux/features/subCategory/subCategoryApi";
 
@@ -35,9 +34,8 @@ const AddSubCategoryModal = ({ open, setOpen }: TProps) => {
     [];
 
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-    const formData = objectToFormData(values);
     await handleAsyncToast({
-      promise: addSubCategory(formData).unwrap(),
+      promise: addSubCategory(values).unwrap(),
       success: () => {
         setOpen(false);
         return "Sub category added successfully!";

@@ -87,22 +87,6 @@ export const UpdateUserValidation = z
     phone: data.code && data.number ? `${data.code}-${data.number}` : undefined,
   }));
 
-export const AddLevelValidation = z.object({
-  title: z.string().min(1, "Level is required"),
-  coverImg: z.instanceof(File, { message: "Cover Image is required" }),
-  bgImg: z.instanceof(File, { message: "Background Image is required" }),
-});
-
-export const UpdateLevelValidation = z.object({
-  title: z.string().min(1, "Level is required"),
-  coverImg: z
-    .instanceof(File, { message: "Cover Image is required" })
-    .optional(),
-  bgImg: z
-    .instanceof(File, { message: "Background Image is required" })
-    .optional(),
-});
-
 export const forgotPasswordValidation = z.object({
   email: z.string().email("Invalid email address"),
 });
@@ -119,61 +103,11 @@ export const resetPasswordValidation = z
     path: ["password_confirmation"],
   });
 
-export const fillTheBlankValidation = z.object({
-  questionType: z.string().min(1, { message: "Question type is required" }),
-  question: z.string().min(1, { message: "Question is required" }),
-  fillBlank: z.string().min(1, { message: "Fill blank is required" }),
-});
-
-export const chooseResponseValidation = z.object({
-  questionType: z.string().min(1, { message: "Question type is required" }),
-  question: z.string().min(1, { message: "Question is required" }),
-  answer: z.array(z.string()).min(1, { message: "Answer is required" }),
-});
-
-export const pickRightOptionValidation = z.object({
-  questionType: z.string().min(1, { message: "Question type is required" }),
-  question: z.string().min(1, { message: "Question is required" }),
-  answer: z.array(z.string()).min(1, { message: "Answer is required" }),
-  correctAnswer: z
-    .array(z.string())
-    .min(1, { message: "Correct answer is required" }),
-});
-
-export const mcqValidation = z.object({
-  questionType: z.string().min(1, { message: "Question type is required" }),
-  question: z.string().min(1, { message: "Question is required" }),
-  answer: z.array(z.string()).min(1, { message: "Answer is required" }),
-  correctAnswer: z
-    .array(z.string())
-    .min(1, { message: "Correct answer is required" }),
-  fillBlank: z.string().min(1, { message: "Fill blank is required" }),
-});
-
-export const imageValidation = z.object({
-  questionType: z.string().min(1, { message: "Question type is required" }),
-  answer: z.array(z.string()).min(1, { message: "Answer is required" }),
-  correctAnswer: z
-    .array(z.string())
-    .min(1, { message: "Correct answer is required" }),
-  fillBlank: z.string().min(1, { message: "Fill blank is required" }),
-  file: z.instanceof(File, { message: "Image is Required" }),
-});
-
-export const videoValidation = z.object({
-  questionType: z.string().min(1, { message: "Question type is required" }),
-  file: z.instanceof(File, { message: "Video is Required" }),
-  answer: z.array(z.string()).min(1, { message: "Answer is required" }),
-  correctAnswer: z
-    .array(z.string())
-    .min(1, { message: "Correct answer is required" }),
-  fillBlank: z.string().min(1, { message: "Fill blank is required" }),
-});
-
 export const AddQuizValidation = z.object({
   question: z.string().min(1, { message: "Question is required" }),
-  answer: z.array(z.string()).min(1, { message: "Options is required" }),
+  answer: z.array(z.string()).min(1, { message: "Answer is required" }),
   correctAnswer: z.string().min(1, { message: "Right answer is required" }),
+  coins: z.number().min(1, { message: "Coins is required" }),
 });
 
 export const AddCategoryValidation = z.object({
@@ -189,16 +123,6 @@ export const UpdateCategoryValidation = z.object({
 export const AddSubCategoryValidation = z.object({
   categoryId: z.number().min(1, { message: "Select a category" }),
   title: z.string().min(1, { message: "Title is required" }),
-  totalPoints: z.string().min(1, { message: "Total points is required" }),
-  entryFee: z.string().min(1, { message: "Entry Fee is required" }),
-});
-
-export const AddStoryValidation = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
-  file: z.instanceof(File, { message: "Image/Video is required" }),
-});
-
-export const UpdateStoryValidation = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
-  file: z.instanceof(File, { message: "Image/Video is required" }).optional(),
+  totalPoints: z.number().min(1, { message: "Total points is required" }),
+  entryFee: z.number().min(1, { message: "Entry Fee is required" }),
 });
