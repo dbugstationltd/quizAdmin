@@ -12,17 +12,16 @@ const subCategoryApi = baseApi.injectEndpoints({
       invalidatesTags: ["subCategory"],
     }),
 
-    getAllSubCategory: builder.query<TResponseRedux<TSubCategory[]>, undefined>(
-      {
-        query: () => {
-          return {
-            url: `/adminSubCategories`,
-            method: "GET",
-          };
-        },
-        providesTags: ["subCategory"],
-      }
-    ),
+    getAllSubCategory: builder.query<TResponseRedux<TSubCategory[]>, object>({
+      query: (args) => {
+        return {
+          url: `/adminSubCategories`,
+          method: "GET",
+          params: args,
+        };
+      },
+      providesTags: ["subCategory"],
+    }),
 
     getSingleSubCategory: builder.query<TResponseRedux<TSubCategory>, string>({
       query: (id) => {

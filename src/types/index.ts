@@ -1,10 +1,5 @@
 export * from "./global";
-export * from "./types.level";
-export * from "./types.user";
-export * from "./types.grammarQuiz";
 export * from "./types.webSettings";
-export * from "./types.assistant";
-export * from "./types.ticket";
 
 export type TCategory = {
   id: number;

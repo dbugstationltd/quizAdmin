@@ -17,13 +17,26 @@ import {
   useGetAllSubCategoryQuery,
 } from "../redux/features/subCategory/subCategoryApi";
 import { Link } from "react-router-dom";
+import RCSelectWithWatchExtra from "../components/form/RCSelectWithWatchExtra";
+import { useGetAllCategoryQuery } from "../redux/features/category/categoryApi";
 
 const SubCategory = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [modalData, setModalData] = useState<TSubCategory>();
-  const { data, isLoading } = useGetAllSubCategoryQuery(undefined);
+  const [category, setCategory] = useState("");
+  const { data: categoryData, isLoading: catIsLoading } = useGetAllCategoryQuery(undefined);
+  const { data, isLoading } = useGetAllSubCategoryQuery({ category });
   const [deleteSubCategory] = useDeleteSubCategoryMutation();
+
+  const categoryOptions =
+    (!catIsLoading &&
+      categoryData?.data.map((item) => ({
+        label: item.title,
+        value: item.title,
+      }))) ||
+    [];
+
   const rowsData: GridValidRowModel[] = data?.data || [];
 
   const columns: GridColDef<TSubCategory>[] = [
@@ -106,6 +119,14 @@ const SubCategory = () => {
           Add Sub-Category
         </Button>
       </Stack>
+      <RCSelectWithWatchExtra
+        name="category"
+        label="Category"
+        items={categoryOptions}
+        onValueChange={(value) => setCategory(value.toLowerCase())}
+        value={""}
+        sx={{ maxWidth: "150px", mt: 3 }}
+      />
       <Box
         mt="20px"
         sx={{ border: "1px solid #E0E2E7" }}
