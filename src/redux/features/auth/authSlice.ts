@@ -6,7 +6,6 @@ export type TAuth = {
     id: number;
     name: string;
     email: string;
-    photo: string | null;
     adminType: { id: number; title: string };
   } | null;
   token: string | null;

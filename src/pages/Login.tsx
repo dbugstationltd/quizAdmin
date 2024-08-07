@@ -4,7 +4,6 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import RCInput from "../components/form/RCInput";
 import bg from "../assets/images/loginBg.svg";
-import { Link } from "react-router-dom";
 import { LoginValidation } from "../schemas";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../redux/hooks";
@@ -89,7 +88,7 @@ const Login = () => {
               placeholder="********"
               sx={{ mt: "16px" }}
             />
-            <Typography
+            {/* <Typography
               fontSize="12px"
               fontWeight="600"
               textAlign="end"
@@ -102,7 +101,7 @@ const Login = () => {
               onClick={() => setIsModalOpen(true)}
             >
               Forgot Password?
-            </Typography>
+            </Typography> */}
             <Button
               type="submit"
               sx={{ mt: "28px", width: "100%" }}
@@ -111,7 +110,7 @@ const Login = () => {
               LOGIN
             </Button>
           </RCForm>
-          <Typography
+         {/*  <Typography
             fontSize="12px"
             fontWeight="600"
             textAlign="center"
@@ -119,7 +118,7 @@ const Login = () => {
             mt="30px"
           >
             Don't have an account? <Link to="/register">Sign Up</Link>
-          </Typography>
+          </Typography> */}
         </Box>
       </Stack>
       <ForgotPasswordModal open={isModalOpen} setOpen={setIsModalOpen} />

@@ -3,7 +3,7 @@ import { useAppSelector } from "../redux/hooks";
 import { selectCurrentToken } from "../redux/features/auth/authSlice";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const token = true //useAppSelector(selectCurrentToken);
+  const token = useAppSelector(selectCurrentToken);
   // const user =  useAppSelector(selectCurrentUser);
 
   if (!token) {
