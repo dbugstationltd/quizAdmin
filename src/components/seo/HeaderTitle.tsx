@@ -5,7 +5,7 @@ const HeaderTitle = ({ title }: { title: string }) => {
   const { data } = useGetWebSettingsQuery(undefined);
   return (
     <Helmet>
-      <title>{`${data?.data.login_page_title} | ${title}`}</title>
+      <title>{`${data?.data.headerTitle} | ${title}`}</title>
     </Helmet>
   );
 };

@@ -1,5 +1,4 @@
 export * from "./global";
-export * from "./types.webSettings";
 
 export type TCategory = {
   id: number;
@@ -26,4 +25,14 @@ export type TQuiz = {
   correctAnswer: string;
   coins: number,
   subCategoryId: number;
+};
+
+export type TWebSettings = {
+  id: number;
+  webAppLogo: string;
+  loginPageTitle: string;
+  headerTitle: string;
+  perQuestionCoin: string;
+  pixelId: string;
+  googleAnalyticsId: string;
 };

@@ -10,7 +10,6 @@ import UserManagement from "../pages/UserManagement";
 import Quiz from "../pages/Quiz";
 import Category from "../pages/Category";
 import SubCategory from "../pages/SubCategory";
-import Leaderboard from "../pages/Leaderboard";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +21,6 @@ const router = createBrowserRouter([
       { path: "/category", element: <Category /> },
       { path: "/sub-category", element: <SubCategory /> },
       { path: "sub-category/:id", element: <Quiz /> },
-      { path: "reward-leaderboard", element: <Leaderboard /> },
       { path: "settings", element: <Settings /> },
     ],
   },
