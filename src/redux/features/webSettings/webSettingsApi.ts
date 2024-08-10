@@ -5,12 +5,22 @@ const webSettingsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getWebSettings: builder.query<TResponseRedux<TWebSettings>, undefined>({
       query: () => ({
-        url: "/web-settings",
+        url: "/settings",
         method: "GET",
       }),
       providesTags: ["webSettings"],
     }),
+
+    updateWebSettings: builder.mutation({
+      query: (data) => ({
+        url: `/settings/1`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["webSettings"],
+    }),
   }),
 });
 
-export const { useGetWebSettingsQuery } = webSettingsApi;
+export const { useGetWebSettingsQuery, useUpdateWebSettingsMutation } =
+  webSettingsApi;

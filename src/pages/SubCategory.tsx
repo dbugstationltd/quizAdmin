@@ -19,6 +19,7 @@ import {
 import { Link } from "react-router-dom";
 import RCSelectWithWatchExtra from "../components/form/RCSelectWithWatchExtra";
 import { useGetAllCategoryQuery } from "../redux/features/category/categoryApi";
+import HeaderTitle from "../components/seo/HeaderTitle";
 
 const SubCategory = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
@@ -113,6 +114,7 @@ const SubCategory = () => {
 
   return (
     <>
+      <HeaderTitle title="Sub category" />
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <PageTitle title="Sub Category" />
         <Button onClick={() => setIsAddModalOpen(true)}>

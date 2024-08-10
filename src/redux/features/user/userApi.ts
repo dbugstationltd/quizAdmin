@@ -14,7 +14,7 @@ const userApi = baseApi.injectEndpoints({
 
     getUser: builder.query<TResponseRedux<TUser[]>, undefined>({
       query: () => ({
-        url: "/adminUser",
+        url: "/users",
         method: "GET",
       }),
       providesTags: ["user"],

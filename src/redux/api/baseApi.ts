@@ -12,22 +12,7 @@ const baseApi = createApi({
     },
   }),
   endpoints: () => ({}),
-  tagTypes: [
-    "user",
-    "level",
-    "grammarQuizz",
-    "assistantCategory",
-    "assistant",
-    "story",
-    "leaderboard",
-    "feedback",
-    "ticket",
-    "message",
-    "webSettings",
-    "category",
-    "subCategory",
-    "quiz"
-  ],
+  tagTypes: ["user", "webSettings", "category", "subCategory", "quiz"],
 });
 
 export default baseApi;

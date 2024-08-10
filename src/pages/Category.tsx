@@ -11,7 +11,11 @@ import UpdateCategoryModal from "../components/ui/category/UpdateCategoryModal";
 import PageTitle from "../components/ui/shared/PageTitle";
 import { TCategory } from "../types";
 import handleAsyncToast from "../utils/handleAsyncToast";
-import { useDeleteCategoryMutation, useGetAllCategoryQuery } from "../redux/features/category/categoryApi";
+import {
+  useDeleteCategoryMutation,
+  useGetAllCategoryQuery,
+} from "../redux/features/category/categoryApi";
+import HeaderTitle from "../components/seo/HeaderTitle";
 
 const Category = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
@@ -89,6 +93,7 @@ const Category = () => {
 
   return (
     <>
+      <HeaderTitle title="Category" />
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <PageTitle title="Category" />
         <Button onClick={() => setIsAddModalOpen(true)}>Add Category</Button>

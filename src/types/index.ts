@@ -23,7 +23,7 @@ export type TQuiz = {
   question: string;
   answer: string[];
   correctAnswer: string;
-  coins: number,
+  coins: number;
   subCategoryId: number;
 };
 
@@ -35,4 +35,11 @@ export type TWebSettings = {
   perQuestionCoin: string;
   pixelId: string;
   googleAnalyticsId: string;
+};
+
+export type TUser = {
+  id: number;
+  email: string;
+  active: boolean;
+  totalCoins: number;
 };

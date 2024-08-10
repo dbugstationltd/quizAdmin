@@ -54,7 +54,7 @@ const Login = () => {
           <Stack justifyContent="center" alignItems="center">
             <img
               src={`${import.meta.env.VITE_IMG_URL}/${
-                data?.data.login_reg_reset_page_logo
+                data?.data.webAppLogo
               }`}
               alt="logo"
               width={84}
@@ -69,7 +69,7 @@ const Login = () => {
             textAlign="center"
             mb="36px"
           >
-            {data?.data.login_page_title}
+            {data?.data.loginPageTitle}
           </Typography>
           <RCForm
             onSubmit={onSubmit}

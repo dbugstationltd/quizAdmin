@@ -126,3 +126,20 @@ export const AddSubCategoryValidation = z.object({
   totalPoints: z.number().min(1, { message: "Total points is required" }),
   entryFee: z.number().min(1, { message: "Entry Fee is required" }),
 });
+
+export const updateWebSettingsValidation = z.object({
+  loginPageTitle: z
+    .string()
+    .min(1, { message: "Login page title is required" }),
+  headerTitle: z.string().min(1, { message: "Header title is required" }),
+  webAppLogo: z
+    .instanceof(File, { message: "Web app logo is required" })
+    .optional(),
+  googleAnalyticsId: z
+    .string()
+    .min(1, { message: "Google analytics Id is required" }),
+  pixelId: z.string().min(1, { message: "Pixel Id is required" }),
+  perQuestionCoin: z
+    .string()
+    .min(1, { message: "Per question coin is required" }),
+});

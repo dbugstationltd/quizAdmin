@@ -1,7 +1,6 @@
 import {
   BarChartRounded,
   CategoryRounded,
-  EmojiEventsRounded,
   GridViewRounded,
   GroupsRounded,
   SettingsRounded,
@@ -28,11 +27,6 @@ const navItems = [
     path: "/sub-category",
     title: "Sub Category",
     icon: BarChartRounded,
-  },
-  {
-    path: "/reward-leaderboard",
-    title: "Reward & Leaderboard",
-    icon: EmojiEventsRounded,
   },
   {
     path: "/settings",
