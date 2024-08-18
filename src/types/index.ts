@@ -35,6 +35,12 @@ export type TWebSettings = {
   perQuestionCoin: string;
   pixelId: string;
   googleAnalyticsId: string;
+  metaTitle: string;
+  metaDescription: string;
+  nativeAd: string;
+  bannerAd: string;
+  rewardAd: string;
+  interAd: string
 };
 
 export type TUser = {

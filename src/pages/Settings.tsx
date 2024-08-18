@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Stack } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import HeaderTitle from "../components/seo/HeaderTitle";
 import {
   useGetWebSettingsQuery,
@@ -25,6 +25,12 @@ const Settings = () => {
     googleAnalyticsId: data?.data.googleAnalyticsId || "",
     pixelId: data?.data.pixelId || "",
     perQuestionCoin: data?.data.perQuestionCoin || "",
+    metaTitle: data?.data.metaTitle || "",
+    metaDescription: data?.data.metaDescription || "",
+    nativeAd: data?.data.nativeAd || "",
+    bannerAd: data?.data.bannerAd || "",
+    interAd: data?.data.interAd || "",
+    rewardAd: data?.data.rewardAd || "",
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
@@ -54,6 +60,9 @@ const Settings = () => {
             defaultValues={defaultData}
             resolver={zodResolver(updateWebSettingsValidation)}
           >
+            <Typography color="primary" fontWeight="bold" mb={3}>
+              General Web Settings
+            </Typography>
             <img
               src={`${import.meta.env.VITE_IMG_URL}/setting/${
                 data?.data.webAppLogo
@@ -72,6 +81,12 @@ const Settings = () => {
                 <RCInput name="headerTitle" label="Header Title" />
               </Grid>
               <Grid item xs={12} md={6}>
+                <RCInput name="metaTitle" label="Meta Title" />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <RCInput name="metaDescription" label="Meta Description" />
+              </Grid>
+              <Grid item xs={12} md={6}>
                 <RCInput name="googleAnalyticsId" label="Google Analytics Id" />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -83,6 +98,23 @@ const Settings = () => {
                   label="Per Question Coin"
                   type="number"
                 />
+              </Grid>
+            </Grid>
+            <Typography color="primary" fontWeight="bold" mt={5}>
+              Google Ad Settings
+            </Typography>
+            <Grid container spacing={2} mt={1}>
+              <Grid item xs={12} md={6}>
+                <RCInput name="bannerAd" label="Banner Ad Unit" />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <RCInput name="rewardAd" label="Reward Ad Unit" />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <RCInput name="interAd" label="Inter Ad Unit" />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <RCInput name="nativeAd" label="Native Ad Unit" />
               </Grid>
             </Grid>
             <Stack direction="row" justifyContent="end" mt={4}>

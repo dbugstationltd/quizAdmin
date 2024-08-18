@@ -132,6 +132,10 @@ export const updateWebSettingsValidation = z.object({
     .string()
     .min(1, { message: "Login page title is required" }),
   headerTitle: z.string().min(1, { message: "Header title is required" }),
+  metaTitle: z.string().min(1, { message: "Meta title is required" }),
+  metaDescription: z
+    .string()
+    .min(1, { message: "Meta description is required" }),
   webAppLogo: z
     .instanceof(File, { message: "Web app logo is required" })
     .optional(),
@@ -142,4 +146,14 @@ export const updateWebSettingsValidation = z.object({
   perQuestionCoin: z
     .string()
     .min(1, { message: "Per question coin is required" }),
+  nativeAd: z
+    .string()
+    .min(1, { message: "Native Ad Unit Id is required" })
+    .optional(),
+  interAd: z
+    .string()
+    .min(1, { message: "Inter Ad Unit ID is required" })
+    .optional(),
+  bannerAd: z.string().min(1, { message: "Banner Ad Unit Id is required" }),
+  rewardAd: z.string().min(1, { message: "Reward Ad Unit Id is required" }),
 });

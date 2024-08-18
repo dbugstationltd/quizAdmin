@@ -1,9 +1,11 @@
 import {
+  AccessibilityNewRounded,
   BarChartRounded,
   CategoryRounded,
   GridViewRounded,
   GroupsRounded,
   SettingsRounded,
+  SupervisorAccountRounded,
 } from "@mui/icons-material";
 // import Dashboard from "../assets/icon/dashboard.svg?react";
 
@@ -27,6 +29,16 @@ const navItems = [
     path: "/sub-category",
     title: "Sub Category",
     icon: BarChartRounded,
+  },
+  {
+    path: "/role-permission",
+    title: "Role & Permission",
+    icon: AccessibilityNewRounded,
+  },
+  {
+    path: "/admins",
+    title: "Admins",
+    icon: SupervisorAccountRounded,
   },
   {
     path: "/settings",

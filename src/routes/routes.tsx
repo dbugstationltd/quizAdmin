@@ -10,6 +10,8 @@ import UserManagement from "../pages/UserManagement";
 import Quiz from "../pages/Quiz";
 import Category from "../pages/Category";
 import SubCategory from "../pages/SubCategory";
+import RolePermission from "../pages/RolePermission";
+import Admins from "../pages/Admins";
 
 const router = createBrowserRouter([
   {
@@ -18,9 +20,11 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "user-management", element: <UserManagement /> },
-      { path: "/category", element: <Category /> },
-      { path: "/sub-category", element: <SubCategory /> },
+      { path: "category", element: <Category /> },
+      { path: "sub-category", element: <SubCategory /> },
       { path: "sub-category/:id", element: <Quiz /> },
+      { path: "role-permission", element: <RolePermission /> },
+      { path: "admins", element: <Admins /> },
       { path: "settings", element: <Settings /> },
     ],
   },
