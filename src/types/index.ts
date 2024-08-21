@@ -40,7 +40,7 @@ export type TWebSettings = {
   nativeAd: string;
   bannerAd: string;
   rewardAd: string;
-  interAd: string
+  interAd: string;
 };
 
 export type TUser = {
@@ -48,4 +48,26 @@ export type TUser = {
   email: string;
   active: boolean;
   totalCoins: number;
+};
+
+export type TNotification = {
+  id: number;
+  topic?: string;
+  title: string;
+  body: string;
+};
+
+export type TRole = {
+  id: number;
+  title: string;
+  roles: TPermissions[]
+};
+
+export type TPermissions = {
+  id: number;
+  adminTypeId: number;
+  name: string;
+  view: boolean;
+  edit: boolean;
+  delete: boolean;
 };

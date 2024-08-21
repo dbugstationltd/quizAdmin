@@ -157,3 +157,12 @@ export const updateWebSettingsValidation = z.object({
   bannerAd: z.string().min(1, { message: "Banner Ad Unit Id is required" }),
   rewardAd: z.string().min(1, { message: "Reward Ad Unit Id is required" }),
 });
+
+export const addNotification = z.object({
+  title: z.string().min(1, { message: "Title is required" }),
+  body: z.string().min(1, { message: "Body is required" }),
+});
+
+export const addAdminType = z.object({
+  title: z.string().min(1, { message: "Title is required" }),
+});

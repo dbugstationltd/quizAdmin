@@ -12,6 +12,9 @@ import Category from "../pages/Category";
 import SubCategory from "../pages/SubCategory";
 import RolePermission from "../pages/RolePermission";
 import Admins from "../pages/Admins";
+import Notification from "../pages/Notification";
+import CreateRolePermission from "../pages/CreateRolePermission";
+import EditRolePermission from "../pages/EditRolePermission";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +26,10 @@ const router = createBrowserRouter([
       { path: "category", element: <Category /> },
       { path: "sub-category", element: <SubCategory /> },
       { path: "sub-category/:id", element: <Quiz /> },
+      { path: "notification", element: <Notification /> },
       { path: "role-permission", element: <RolePermission /> },
+      { path: "role-permission/create", element: <CreateRolePermission /> },
+      { path: "role-permission/:id", element: <EditRolePermission /> },
       { path: "admins", element: <Admins /> },
       { path: "settings", element: <Settings /> },
     ],

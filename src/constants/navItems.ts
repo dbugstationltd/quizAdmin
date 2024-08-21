@@ -4,6 +4,7 @@ import {
   CategoryRounded,
   GridViewRounded,
   GroupsRounded,
+  NotificationsRounded,
   SettingsRounded,
   SupervisorAccountRounded,
 } from "@mui/icons-material";
@@ -29,6 +30,11 @@ const navItems = [
     path: "/sub-category",
     title: "Sub Category",
     icon: BarChartRounded,
+  },
+  {
+    path: "/notification",
+    title: "Notification",
+    icon: NotificationsRounded,
   },
   {
     path: "/role-permission",

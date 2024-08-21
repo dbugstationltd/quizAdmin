@@ -41,6 +41,8 @@ const ResponsiveDrawer = () => {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
           bgcolor: "white",
+          boxShadow: "none",
+          borderBottom: "1px solid #E0E0E0",
         }}
       >
         <Toolbar>

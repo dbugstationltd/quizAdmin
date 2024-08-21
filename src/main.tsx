@@ -12,7 +12,7 @@ import router from "./routes/routes.tsx";
 import { Toaster } from "sonner";
 import { HelmetProvider } from "react-helmet-async";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

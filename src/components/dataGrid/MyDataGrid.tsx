@@ -54,7 +54,7 @@ const MyDataGrid = ({
       disableColumnMenu={disableColumnMenu}
       getRowClassName={getRowClassName}
       pageSizeOptions={[10, 20, 50]}
-      initialState={{ pagination: { paginationModel: { pageSize: 10 } } }}
+      initialState={{ pagination: { paginationModel: { pageSize: 20 } } }}
       hideFooter={hideFooter}
       loading={loading}
       autoHeight
