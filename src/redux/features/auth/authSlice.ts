@@ -1,12 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
+import { TPermissions } from "../../../types";
 
 export type TAuth = {
   user: {
     id: number;
     name: string;
     email: string;
-    adminType: { id: number; title: string };
+    adminType: { id: number; title: string, roles: TPermissions[] };
   } | null;
   token: string | null;
 };

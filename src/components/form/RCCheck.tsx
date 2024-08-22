@@ -20,8 +20,8 @@ const RCCheck = ({ name, size, sx, defaultChecked }: TCheckProps) => {
           {...field}
           sx={{ ...sx }}
           size={size || "small"}
-          // checked={!!field.value}
           defaultChecked={defaultChecked}
+          checked={!!field.value}
         />
       )}
     />

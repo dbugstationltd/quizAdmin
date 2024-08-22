@@ -13,15 +13,26 @@ import {
 import logoB from "../../assets/icon/logoWithText.svg";
 import navItems from "../../constants/navItems";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../../redux/hooks";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 
 const Sidebar = () => {
+  const user = useAppSelector(selectCurrentUser);
+  const userPermission = user?.adminType.roles.map(
+    ({ name, view }) => view && name
+  );
+  const filteredNavItems = navItems.filter((value) =>
+    userPermission?.includes(value.path.split("/")[1])
+  );
+  const viewableNavItems = [navItems[0], ...filteredNavItems];
+
   return (
     <Box sx={{ bgcolor: "white", height: "100vh", px: "16px" }}>
       <Stack height={64} justifyContent="center" alignItems="center">
         <img src={logoB} alt="Logo" />
       </Stack>
       <List>
-        {navItems.map((item, index) => (
+        {viewableNavItems.map((item, index) => (
           <React.Fragment key={index}>
             <NavLink
               key={item.path}

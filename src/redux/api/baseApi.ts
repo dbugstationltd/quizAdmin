@@ -20,6 +20,7 @@ const baseApi = createApi({
     "quiz",
     "notification",
     "rolePermission",
+    "admin"
   ],
 });
 

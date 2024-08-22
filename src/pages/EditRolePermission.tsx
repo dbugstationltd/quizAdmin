@@ -97,12 +97,62 @@ const EditRolePermission = () => {
       flex: 1,
     },
   ];
+  const getName = (name: string) =>
+    data?.data.roles.find((item) => item.name === name);
 
   const defaultValues = {
     title: data?.data.title || "",
+    dashboard: {
+      view: getName("dashboard")?.view,
+      edit: getName("dashboard")?.edit,
+      delete: getName("dashboard")?.delete,
+    },
+    "user-management": {
+      view: getName("user-management")?.view,
+      edit: getName("user-management")?.edit,
+      delete: getName("user-management")?.delete,
+    },
+    category: {
+      view: getName("category")?.view,
+      edit: getName("category")?.edit,
+      delete: getName("category")?.delete,
+    },
+    "sub-category": {
+      view: getName("sub-category")?.view,
+      edit: getName("sub-category")?.edit,
+      delete: getName("sub-category")?.delete,
+    },
+    quiz: {
+      view: getName("quiz")?.view,
+      edit: getName("quiz")?.edit,
+      delete: getName("quiZ")?.delete,
+    },
+    notification: {
+      view: getName("notification")?.view,
+      edit: getName("notification")?.edit,
+      delete: getName("notification")?.delete,
+    },
+    "role-permission": {
+      view: getName("role-permission")?.view,
+      edit: getName("role-permission")?.edit,
+      delete: getName("role-permission")?.delete,
+    },
+    "create-role": {
+      view: getName("create-role")?.view,
+      edit: getName("create-role")?.edit,
+      delete: getName("create-role")?.delete,
+    },
+    admins: {
+      view: getName("admins")?.view,
+      edit: getName("admins")?.edit,
+      delete: getName("admins")?.delete,
+    },
+    settings: {
+      view: getName("settings")?.view,
+      edit: getName("settings")?.edit,
+      delete: getName("settings")?.delete,
+    },
   };
-
-  console.log(id);
 
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
     const { title, ...rest } = values;

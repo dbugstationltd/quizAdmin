@@ -3,7 +3,7 @@ import { Controller, useFormContext } from "react-hook-form";
 
 export type TItem = {
   label: string;
-  value: string | number | boolean;
+  value: string | number;
 };
 
 type TSelectProps = {

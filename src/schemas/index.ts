@@ -166,3 +166,22 @@ export const addNotification = z.object({
 export const addAdminType = z.object({
   title: z.string().min(1, { message: "Title is required" }),
 });
+
+export const AddAdmin = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
+  adminTypeId: z.number().min(1, { message: "Select a role" }),
+});
+
+export const UpdateAdmin = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
+  email: z.string().email("Invalid email address"),
+  password: z
+    .string()
+    .optional()
+    .refine((val) => !val || val.length >= 8, {
+      message: "Password must be at least 8 characters long",
+    }),
+  adminTypeId: z.number().min(1, { message: "Select a role" }),
+});

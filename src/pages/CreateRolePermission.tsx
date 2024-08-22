@@ -10,6 +10,7 @@ import { GridColDef, GridValidRowModel } from "@mui/x-data-grid";
 import { TPermissions } from "../types";
 import MyDataGrid from "../components/dataGrid/MyDataGrid";
 import RCCheck from "../components/form/RCCheck";
+import { useNavigate } from "react-router-dom";
 
 const defaultValues = {
   title: "",
@@ -66,6 +67,7 @@ const defaultValues = {
 };
 
 const CreateRolePermission = () => {
+  const navigate = useNavigate();
   const [createRole] = useAddRoleMutation();
   const rowsData: GridValidRowModel[] = [
     {
@@ -160,6 +162,7 @@ const CreateRolePermission = () => {
     await handleAsyncToast({
       promise: createRole({ title, permissions }).unwrap(),
       success: () => {
+        navigate("/role-permission");
         return "Role Permission created successfully!";
       },
     });

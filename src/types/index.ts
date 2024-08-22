@@ -60,7 +60,7 @@ export type TNotification = {
 export type TRole = {
   id: number;
   title: string;
-  roles: TPermissions[]
+  roles: TPermissions[];
 };
 
 export type TPermissions = {
@@ -70,4 +70,11 @@ export type TPermissions = {
   view: boolean;
   edit: boolean;
   delete: boolean;
+};
+
+export type TAdmin = {
+  id: number;
+  name: string;
+  email: string;
+  adminType: { title: string, id: number };
 };
