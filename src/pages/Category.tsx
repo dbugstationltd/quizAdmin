@@ -9,13 +9,15 @@ import MyDataGrid from "../components/dataGrid/MyDataGrid";
 import AddCategoryModal from "../components/ui/category/AddCategoryModal";
 import UpdateCategoryModal from "../components/ui/category/UpdateCategoryModal";
 import PageTitle from "../components/ui/shared/PageTitle";
-import { TCategory } from "../types";
+import { TCategory, TPermissions } from "../types";
 import handleAsyncToast from "../utils/handleAsyncToast";
 import {
   useDeleteCategoryMutation,
   useGetAllCategoryQuery,
 } from "../redux/features/category/categoryApi";
 import HeaderTitle from "../components/seo/HeaderTitle";
+import GetPermission from "../utils/getPermission";
+import { toast } from "sonner";
 
 const Category = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
@@ -24,6 +26,7 @@ const Category = () => {
   const { data, isLoading } = useGetAllCategoryQuery(undefined);
   const [deleteCategory] = useDeleteCategoryMutation();
   const rowsData: GridValidRowModel[] = data?.data || [];
+  const { delete: del, edit } = GetPermission("category") as TPermissions;
 
   const columns: GridColDef<TCategory>[] = [
     {
@@ -65,10 +68,11 @@ const Category = () => {
           alignItems="center"
           height="100%"
         >
-          <IconButton onClick={() => handleEditModal(row)} aria-label="view">
+          <IconButton onClick={() => handleEditModal(row)} aria-label="edit">
             <DriveFileRenameOutlineRounded color="success" />
           </IconButton>
-          <IconButton onClick={() => handleDelete(row.id)} aria-label="view">
+
+          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
             <DeleteRounded color="error" />
           </IconButton>
         </Stack>
@@ -79,16 +83,24 @@ const Category = () => {
   ];
 
   const handleEditModal = (data: TCategory) => {
-    setModalData(data);
-    setIsEditModalOpen(true);
+    if (!edit) {
+      toast.error("You don't have permission");
+    } else {
+      setModalData(data);
+      setIsEditModalOpen(true);
+    }
   };
   const handleDelete = async (id: number) => {
-    handleAsyncToast({
-      promise: deleteCategory(id).unwrap(),
-      success: () => {
-        return "Category deleted successfully!";
-      },
-    });
+    if (!del) {
+      toast.error("You don't have permission");
+    } else {
+      handleAsyncToast({
+        promise: deleteCategory(id).unwrap(),
+        success: () => {
+          return "Category deleted successfully!";
+        },
+      });
+    }
   };
 
   return (

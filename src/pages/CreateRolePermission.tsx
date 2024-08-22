@@ -34,22 +34,12 @@ const defaultValues = {
     edit: true,
     delete: true,
   },
-  quiz: {
-    view: true,
-    edit: true,
-    delete: true,
-  },
   notification: {
     view: true,
     edit: true,
     delete: true,
   },
   "role-permission": {
-    view: true,
-    edit: true,
-    delete: true,
-  },
-  "create-role": {
     view: true,
     edit: true,
     delete: true,
@@ -88,26 +78,18 @@ const CreateRolePermission = () => {
     },
     {
       id: 5,
-      name: "quiz",
-    },
-    {
-      id: 6,
       name: "notification",
     },
     {
-      id: 7,
+      id: 6,
       name: "role-permission",
     },
     {
-      id: 8,
-      name: "create-role",
-    },
-    {
-      id: 9,
+      id: 7,
       name: "admins",
     },
     {
-      id: 10,
+      id: 8,
       name: "settings",
     },
   ];
@@ -123,7 +105,7 @@ const CreateRolePermission = () => {
       field: "view",
       headerName: "View",
       renderCell: ({ row }) => (
-        <RCCheck name={`${row.name}.view`} size="small" />
+        <RCCheck name={`${row.name}.view`} />
       ),
       minWidth: 200,
       flex: 1,
@@ -132,7 +114,7 @@ const CreateRolePermission = () => {
       field: "edit",
       headerName: "Edit",
       renderCell: ({ row }) => (
-        <RCCheck name={`${row.name}.edit`} size="small" />
+        <RCCheck name={`${row.name}.edit`} />
       ),
       minWidth: 200,
       flex: 1,
@@ -141,7 +123,7 @@ const CreateRolePermission = () => {
       field: "delete",
       headerName: "Delete",
       renderCell: ({ row }) => (
-        <RCCheck name={`${row.name}.delete`} size="small" />
+        <RCCheck name={`${row.name}.delete`} />
       ),
       minWidth: 200,
       flex: 1,
@@ -158,7 +140,6 @@ const CreateRolePermission = () => {
         delete: del,
       })
     );
-    console.log({ title, permissions });
     await handleAsyncToast({
       promise: createRole({ title, permissions }).unwrap(),
       success: () => {

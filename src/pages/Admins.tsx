@@ -8,7 +8,7 @@ import {
 } from "../redux/features/admin/adminApi";
 import { GridColDef, GridValidRowModel } from "@mui/x-data-grid";
 import MyDataGrid from "../components/dataGrid/MyDataGrid";
-import { TAdmin } from "../types";
+import { TAdmin, TPermissions } from "../types";
 import {
   DeleteRounded,
   DriveFileRenameOutlineRounded,
@@ -16,6 +16,8 @@ import {
 import handleAsyncToast from "../utils/handleAsyncToast";
 import AddAdminModal from "../components/ui/admin/AddAdminModal";
 import UpdateAdminModal from "../components/ui/admin/UpdateAdminModal";
+import GetPermission from "../utils/getPermission";
+import { toast } from "sonner";
 
 const Admins = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -23,6 +25,7 @@ const Admins = () => {
   const [modalData, setModalData] = useState<TAdmin>();
   const { data, isFetching } = useGetAllAdminQuery(undefined);
   const [deleteAdmin] = useDeleteAdminMutation();
+  const { delete: del, edit } = GetPermission("admins") as TPermissions;
 
   const rowsData: GridValidRowModel[] = data?.data || [];
 
@@ -57,10 +60,10 @@ const Admins = () => {
           alignItems="center"
           height="100%"
         >
-          <IconButton onClick={() => handleEditModal(row)} aria-label="view">
+          <IconButton onClick={() => handleEditModal(row)} aria-label="edit">
             <DriveFileRenameOutlineRounded color="success" />
           </IconButton>
-          <IconButton onClick={() => handleDelete(row.id)} aria-label="view">
+          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
             <DeleteRounded color="error" />
           </IconButton>
         </Stack>
@@ -71,16 +74,24 @@ const Admins = () => {
   ];
 
   const handleEditModal = (data: TAdmin) => {
-    setModalData(data);
-    setIsEditModalOpen(true);
+    if (!edit) {
+      toast.error("You don't have permission");
+    } else {
+      setModalData(data);
+      setIsEditModalOpen(true);
+    }
   };
   const handleDelete = async (id: number) => {
-    handleAsyncToast({
-      promise: deleteAdmin(id).unwrap(),
-      success: () => {
-        return "Admin deleted successfully!";
-      },
-    });
+    if (!del) {
+      toast.error("You don't have permission");
+    } else {
+      handleAsyncToast({
+        promise: deleteAdmin(id).unwrap(),
+        success: () => {
+          return "Admin deleted successfully!";
+        },
+      });
+    }
   };
 
   return (

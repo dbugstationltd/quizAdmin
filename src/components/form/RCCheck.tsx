@@ -5,10 +5,9 @@ type TCheckProps = {
   name: string;
   size?: "small" | "medium" | "large";
   sx?: SxProps;
-  defaultChecked?: boolean;
 };
 
-const RCCheck = ({ name, size, sx, defaultChecked }: TCheckProps) => {
+const RCCheck = ({ name, size, sx }: TCheckProps) => {
   const { control } = useFormContext();
 
   return (
@@ -20,7 +19,6 @@ const RCCheck = ({ name, size, sx, defaultChecked }: TCheckProps) => {
           {...field}
           sx={{ ...sx }}
           size={size || "small"}
-          defaultChecked={defaultChecked}
           checked={!!field.value}
         />
       )}

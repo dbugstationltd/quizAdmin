@@ -7,17 +7,22 @@ import {
 } from "../redux/features/rolePermission/rolePermissionApi";
 import MyDataGrid from "../components/dataGrid/MyDataGrid";
 import { GridColDef, GridValidRowModel } from "@mui/x-data-grid";
-import { TRole } from "../types";
+import { TPermissions, TRole } from "../types";
 import {
   DeleteRounded,
   DriveFileRenameOutlineRounded,
 } from "@mui/icons-material";
 import handleAsyncToast from "../utils/handleAsyncToast";
 import { Link } from "react-router-dom";
+import GetPermission from "../utils/getPermission";
+import { toast } from "sonner";
 
 const RolePermission = () => {
   const { data, isFetching } = useGetAllRoleQuery(undefined);
   const [deleteRole] = useDeleteRoleMutation();
+  const { delete: del, edit } = GetPermission(
+    "role-permission"
+  ) as TPermissions;
   const rowsData: GridValidRowModel[] = data?.data || [];
 
   const columns: GridColDef<TRole>[] = [
@@ -38,12 +43,14 @@ const RolePermission = () => {
           alignItems="center"
           height="100%"
         >
-          <Link to={`/role-permission/${row.id}`}>
-            <IconButton aria-label="view">
-              <DriveFileRenameOutlineRounded color="success" />
-            </IconButton>
-          </Link>
-          <IconButton onClick={() => handleDelete(row.id)} aria-label="view">
+          {edit && (
+            <Link to={`/role-permission/${row.id}`}>
+              <IconButton aria-label="edit">
+                <DriveFileRenameOutlineRounded color="success" />
+              </IconButton>
+            </Link>
+          )}
+          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
             <DeleteRounded color="error" />
           </IconButton>
         </Stack>
@@ -54,12 +61,16 @@ const RolePermission = () => {
   ];
 
   const handleDelete = async (id: number) => {
-    handleAsyncToast({
-      promise: deleteRole(id).unwrap(),
-      success: () => {
-        return "Role deleted successfully!";
-      },
-    });
+    if (!del) {
+      toast.error("You don't have permission");
+    } else {
+      handleAsyncToast({
+        promise: deleteRole(id).unwrap(),
+        success: () => {
+          return "Role deleted successfully!";
+        },
+      });
+    }
   };
 
   return (

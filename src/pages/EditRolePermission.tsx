@@ -17,7 +17,7 @@ import RCCheck from "../components/form/RCCheck";
 
 const EditRolePermission = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetSingleRoleQuery(id as string);
+  const { data, isFetching } = useGetSingleRoleQuery(id as string);
   const [updateRole] = useUpdateRoleMutation();
   const rowsData: GridValidRowModel[] = data?.data.roles || [
     {
@@ -38,26 +38,18 @@ const EditRolePermission = () => {
     },
     {
       id: 5,
-      name: "quiz",
-    },
-    {
-      id: 6,
       name: "notification",
     },
     {
-      id: 7,
+      id: 6,
       name: "role-permission",
     },
     {
-      id: 8,
-      name: "create-role",
-    },
-    {
-      id: 9,
+      id: 7,
       name: "admins",
     },
     {
-      id: 10,
+      id: 8,
       name: "settings",
     },
   ];
@@ -73,7 +65,7 @@ const EditRolePermission = () => {
       field: "view",
       headerName: "View",
       renderCell: ({ row }) => (
-        <RCCheck name={`${row.name}.view`} defaultChecked={row?.view} />
+        <RCCheck name={`${row.name}.view`}  />
       ),
       minWidth: 200,
       flex: 1,
@@ -82,7 +74,7 @@ const EditRolePermission = () => {
       field: "edit",
       headerName: "Edit",
       renderCell: ({ row }) => (
-        <RCCheck name={`${row.name}.edit`} defaultChecked={row?.edit} />
+        <RCCheck name={`${row.name}.edit`}  />
       ),
       minWidth: 200,
       flex: 1,
@@ -91,7 +83,7 @@ const EditRolePermission = () => {
       field: "delete",
       headerName: "Delete",
       renderCell: ({ row }) => (
-        <RCCheck name={`${row.name}.delete`} defaultChecked={row?.delete} />
+        <RCCheck name={`${row.name}.delete`}  />
       ),
       minWidth: 200,
       flex: 1,
@@ -122,11 +114,6 @@ const EditRolePermission = () => {
       edit: getName("sub-category")?.edit,
       delete: getName("sub-category")?.delete,
     },
-    quiz: {
-      view: getName("quiz")?.view,
-      edit: getName("quiz")?.edit,
-      delete: getName("quiZ")?.delete,
-    },
     notification: {
       view: getName("notification")?.view,
       edit: getName("notification")?.edit,
@@ -136,11 +123,6 @@ const EditRolePermission = () => {
       view: getName("role-permission")?.view,
       edit: getName("role-permission")?.edit,
       delete: getName("role-permission")?.delete,
-    },
-    "create-role": {
-      view: getName("create-role")?.view,
-      edit: getName("create-role")?.edit,
-      delete: getName("create-role")?.delete,
     },
     admins: {
       view: getName("admins")?.view,
@@ -164,7 +146,6 @@ const EditRolePermission = () => {
         delete: del,
       })
     );
-    console.log({ title, permissions });
     await handleAsyncToast({
       promise: updateRole({ id, data: { title, permissions } }).unwrap(),
       success: () => {
@@ -177,7 +158,7 @@ const EditRolePermission = () => {
     <>
       <HeaderTitle title="Edit Role/Permission" />
       <PageTitle title="Edit Role Permission" />
-      {!isLoading && (
+      {!isFetching && (
         <RCForm onSubmit={onSubmit} defaultValues={defaultValues}>
           <Grid container spacing={2} mt={3}>
             <Grid item xs={12} md={6}>
@@ -191,7 +172,7 @@ const EditRolePermission = () => {
             bgcolor="white"
             overflow="hidden"
           >
-            <MyDataGrid rows={rowsData} columns={columns} />
+            <MyDataGrid rows={rowsData} columns={columns} loading={isFetching} />
           </Box>
           <Stack direction="row" justifyContent="end" mt={4}>
             <Button type="submit">Submit</Button>

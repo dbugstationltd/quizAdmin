@@ -13,10 +13,14 @@ import { updateWebSettingsValidation } from "../schemas";
 import RCInput from "../components/form/RCInput";
 import RCFileUploader from "../components/form/RCFileUploader";
 import PageTitle from "../components/ui/shared/PageTitle";
+import { TPermissions } from "../types";
+import GetPermission from "../utils/getPermission";
+import { toast } from "sonner";
 
 const Settings = () => {
   const { data, isFetching } = useGetWebSettingsQuery(undefined);
   const [update] = useUpdateWebSettingsMutation();
+  const { edit } = GetPermission("settings") as TPermissions;
 
   const defaultData = {
     loginPageTitle: data?.data.loginPageTitle || "",
@@ -34,13 +38,17 @@ const Settings = () => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-    const formData = objectToFormData(values);
-    await handleAsyncToast({
-      promise: update(formData).unwrap(),
-      success: () => {
-        return "Settings updated successfully!";
-      },
-    });
+    if (!edit) {
+      toast.error("You don't have permission");
+    } else {
+      const formData = objectToFormData(values);
+      await handleAsyncToast({
+        promise: update(formData).unwrap(),
+        success: () => {
+          return "Settings updated successfully!";
+        },
+      });
+    }
   };
 
   return (

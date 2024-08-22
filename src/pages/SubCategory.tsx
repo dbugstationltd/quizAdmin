@@ -3,7 +3,7 @@ import PageTitle from "../components/ui/shared/PageTitle";
 import MyDataGrid from "../components/dataGrid/MyDataGrid";
 import { GridColDef, GridValidRowModel } from "@mui/x-data-grid";
 import { useState } from "react";
-import { TSubCategory } from "../types";
+import { TPermissions, TSubCategory } from "../types";
 import {
   DeleteRounded,
   DriveFileRenameOutlineRounded,
@@ -20,15 +20,19 @@ import { Link } from "react-router-dom";
 import RCSelectWithWatchExtra from "../components/form/RCSelectWithWatchExtra";
 import { useGetAllCategoryQuery } from "../redux/features/category/categoryApi";
 import HeaderTitle from "../components/seo/HeaderTitle";
+import GetPermission from "../utils/getPermission";
+import { toast } from "sonner";
 
 const SubCategory = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [modalData, setModalData] = useState<TSubCategory>();
   const [category, setCategory] = useState("");
-  const { data: categoryData, isLoading: catIsLoading } = useGetAllCategoryQuery(undefined);
+  const { data: categoryData, isLoading: catIsLoading } =
+    useGetAllCategoryQuery(undefined);
   const { data, isLoading } = useGetAllSubCategoryQuery({ category });
   const [deleteSubCategory] = useDeleteSubCategoryMutation();
+  const { delete: del, edit } = GetPermission("sub-category") as TPermissions;
 
   const categoryOptions =
     (!catIsLoading &&
@@ -86,10 +90,10 @@ const SubCategory = () => {
               <VisibilityRounded color="primary" />
             </IconButton>
           </Link>
-          <IconButton onClick={() => handleEditModal(row)} aria-label="view">
+          <IconButton onClick={() => handleEditModal(row)} aria-label="edit">
             <DriveFileRenameOutlineRounded color="success" />
           </IconButton>
-          <IconButton onClick={() => handleDelete(row.id)} aria-label="view">
+          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
             <DeleteRounded color="error" />
           </IconButton>
         </Stack>
@@ -100,16 +104,24 @@ const SubCategory = () => {
   ];
 
   const handleEditModal = (data: TSubCategory) => {
-    setModalData(data);
-    setIsEditModalOpen(true);
+    if (!edit) {
+      toast.error("You don't have permission");
+    } else {
+      setModalData(data);
+      setIsEditModalOpen(true);
+    }
   };
   const handleDelete = async (id: number) => {
-    handleAsyncToast({
-      promise: deleteSubCategory(id).unwrap(),
-      success: () => {
-        return "Sub category deleted successfully!";
-      },
-    });
+    if (!del) {
+      toast.error("You don't have permission");
+    } else {
+      handleAsyncToast({
+        promise: deleteSubCategory(id).unwrap(),
+        success: () => {
+          return "Sub category deleted successfully!";
+        },
+      });
+    }
   };
 
   return (
