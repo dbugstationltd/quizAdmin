@@ -78,3 +78,12 @@ export type TAdmin = {
   email: string;
   adminType: { title: string, id: number };
 };
+
+export type TMetaData = {
+  quiz: number;
+  category: number;
+  subCategory: number;
+  user: number;
+  admin: number;
+  notification: number;
+};

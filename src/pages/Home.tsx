@@ -1,15 +1,16 @@
-import { Box, MenuItem, Select, Stack, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import TotalEarningItem from "../components/ui/home/TotalEarningItem";
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
-import { useState } from "react";
-import AppPerformance from "../components/ui/home/AppPerformance";
-import AdsPerformance from "../components/ui/home/AdsPerformance";
+import { Grid, Typography } from "@mui/material";
 import HeaderTitle from "../components/seo/HeaderTitle";
+import { useGetMetaDataQuery } from "../redux/features/home/homeApi";
+import totalQuizIcon from "../assets/icon/total-quiz.svg";
+import totalUserIcon from "../assets/icon/total-quiz.svg";
+import totalAdminIcon from "../assets/icon/total-admin.svg";
+import totalCategoryIcon from "../assets/icon/total-category.svg";
+import totalSubcategoryIcon from "../assets/icon/total-subcategory.svg";
+import totalNotificationIcon from "../assets/icon/total-notification.svg";
+import Card from "../components/ui/home/Card";
 
 const Home = () => {
-  const [activity, setActivity] = useState(10);
+  const { data } = useGetMetaDataQuery(undefined);
 
   return (
     <>
@@ -17,55 +18,50 @@ const Home = () => {
       <Typography variant="h5" fontWeight="medium" component="h1">
         Home
       </Typography>
-      <Box mt={3} bgcolor="primary.main" borderRadius={2} p="20px">
-        <Typography
-          fontSize="18px"
-          fontWeight="medium"
-          component="p"
-          color="white"
-        >
-          Total estimated earnings
-        </Typography>
-        <Grid container width="100%" mt={2} spacing={1}>
-          <Grid item xs={6} md={3}>
-            <TotalEarningItem title="Today so far" value={0.0} />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <TotalEarningItem title="Yesterday" value={0.0} />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <TotalEarningItem title="This month so far" value={0.0} />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <TotalEarningItem title="Last month" value={0.0} />
-          </Grid>
+      <Grid container mt={2} spacing={4}>
+        <Grid item xs={12} md={6} lg={3}>
+          <Card
+            count={data?.data?.quiz as number}
+            icon={totalQuizIcon}
+            title="Total Quiz"
+          />
         </Grid>
-      </Box>
-      <Stack mt={3} direction="row" alignItems="center" gap="12px">
-        <CalendarMonthOutlinedIcon />
-        <Select
-          value={activity}
-          onChange={(e) => setActivity(e.target.value as number)}
-          size="small"
-          sx={{
-            minWidth: 150,
-            fontSize: "14px",
-            fontWeight: "500",
-            // '& .MuiOutlinedInput-notchedOutline': {
-            //   border: 'none'
-            // },
-          }}
-          IconComponent={ArrowDropDownOutlinedIcon}
-        >
-          <MenuItem value={10}>Last 7 days vs previous 7 days</MenuItem>
-          <MenuItem value={20}>Last 1 month vs previous 1 month</MenuItem>
-          <MenuItem value={30}>Last 7 days vs previous 7 days</MenuItem>
-        </Select>
-      </Stack>
-      <Stack direction={{ xs: "column", lg: "row" }} mt={3} gap={3}>
-        <AdsPerformance />
-        <AppPerformance />
-      </Stack>
+        <Grid item xs={12} md={6} lg={3}>
+          <Card
+            count={data?.data?.user as number}
+            icon={totalUserIcon}
+            title="Total Users"
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Card
+            count={data?.data?.admin as number}
+            icon={totalAdminIcon}
+            title="Total Admin"
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Card
+            count={data?.data?.category as number}
+            icon={totalCategoryIcon}
+            title="Total Category"
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Card
+            count={data?.data?.subCategory as number}
+            icon={totalSubcategoryIcon}
+            title="Total Sub Category"
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Card
+            count={data?.data?.notification as number}
+            icon={totalNotificationIcon}
+            title="Total Notification"
+          />
+        </Grid>
+      </Grid>
     </>
   );
 };
