@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <CssBaseline />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <HelmetProvider>
-              <Toaster position="top-right" richColors duration={1000} />
+              <Toaster position="top-right" richColors duration={1300} />
               <RouterProvider router={router} />
             </HelmetProvider>
           </LocalizationProvider>

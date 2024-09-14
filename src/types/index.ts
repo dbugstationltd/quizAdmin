@@ -76,14 +76,14 @@ export type TAdmin = {
   id: number;
   name: string;
   email: string;
-  adminType: { title: string, id: number };
+  adminType: { title: string; id: number };
 };
 
 export type TMetaData = {
-  quiz: number;
-  category: number;
-  subCategory: number;
-  user: number;
-  admin: number;
-  notification: number;
+  totalQuizes: number;
+  totalCategories: number;
+  totalSubCategories: number;
+  totalUsers: number;
+  totalAdmins: number;
+  totalNotifications: number;
 };

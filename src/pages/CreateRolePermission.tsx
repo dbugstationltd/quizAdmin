@@ -11,88 +11,29 @@ import { TPermissions } from "../types";
 import MyDataGrid from "../components/dataGrid/MyDataGrid";
 import RCCheck from "../components/form/RCCheck";
 import { useNavigate } from "react-router-dom";
+import { paths } from "../constants";
+import { useMemo } from "react";
 
-const defaultValues = {
+const generateDefaultValues = () => ({
   title: "",
-  dashboard: {
-    view: true,
-    edit: true,
-    delete: true,
-  },
-  "user-management": {
-    view: true,
-    edit: true,
-    delete: true,
-  },
-  category: {
-    view: true,
-    edit: true,
-    delete: true,
-  },
-  "sub-category": {
-    view: true,
-    edit: true,
-    delete: true,
-  },
-  notification: {
-    view: true,
-    edit: true,
-    delete: true,
-  },
-  "role-permission": {
-    view: true,
-    edit: true,
-    delete: true,
-  },
-  admins: {
-    view: true,
-    edit: true,
-    delete: true,
-  },
-  settings: {
-    view: true,
-    edit: true,
-    delete: true,
-  },
-};
+  ...paths.reduce<Record<string, unknown>>((acc, path) => {
+    acc[path] = {
+      view: true,
+      edit: true,
+      delete: true,
+    };
+    return acc;
+  }, {}),
+});
 
 const CreateRolePermission = () => {
   const navigate = useNavigate();
   const [createRole] = useAddRoleMutation();
-  const rowsData: GridValidRowModel[] = [
-    {
-      id: 1,
-      name: "dashboard",
-    },
-    {
-      id: 2,
-      name: "user-management",
-    },
-    {
-      id: 3,
-      name: "category",
-    },
-    {
-      id: 4,
-      name: "sub-category",
-    },
-    {
-      id: 5,
-      name: "notification",
-    },
-    {
-      id: 6,
-      name: "role-permission",
-    },
-    {
-      id: 7,
-      name: "admins",
-    },
-    {
-      id: 8,
-      name: "settings",
-    },
-  ];
+  const defaultValues = useMemo(() => generateDefaultValues(), []);
+  const rowsData: GridValidRowModel[] = useMemo(
+    () => paths.map((path, i) => ({ id: i, name: path })),
+    []
+  );
 
   const columns: GridColDef<TPermissions>[] = [
     {

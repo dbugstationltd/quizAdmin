@@ -14,6 +14,19 @@ import {
   useUpdateRoleMutation,
 } from "../redux/features/rolePermission/rolePermissionApi";
 import RCCheck from "../components/form/RCCheck";
+import { useMemo } from "react";
+
+const generateDefaultValues = (data: any) => ({
+  title: data?.data.title || "",
+  ...data?.data.roles.reduce((acc: any, role: any) => {
+    acc[role.name] = {
+      view: role.view,
+      edit: role.edit,
+      delete: role.delete,
+    };
+    return acc;
+  }, {}),
+});
 
 const EditRolePermission = () => {
   const { id } = useParams();
@@ -89,52 +102,8 @@ const EditRolePermission = () => {
       flex: 1,
     },
   ];
-  const getName = (name: string) =>
-    data?.data.roles.find((item) => item.name === name);
 
-  const defaultValues = {
-    title: data?.data.title || "",
-    dashboard: {
-      view: getName("dashboard")?.view,
-      edit: getName("dashboard")?.edit,
-      delete: getName("dashboard")?.delete,
-    },
-    "user-management": {
-      view: getName("user-management")?.view,
-      edit: getName("user-management")?.edit,
-      delete: getName("user-management")?.delete,
-    },
-    category: {
-      view: getName("category")?.view,
-      edit: getName("category")?.edit,
-      delete: getName("category")?.delete,
-    },
-    "sub-category": {
-      view: getName("sub-category")?.view,
-      edit: getName("sub-category")?.edit,
-      delete: getName("sub-category")?.delete,
-    },
-    notification: {
-      view: getName("notification")?.view,
-      edit: getName("notification")?.edit,
-      delete: getName("notification")?.delete,
-    },
-    "role-permission": {
-      view: getName("role-permission")?.view,
-      edit: getName("role-permission")?.edit,
-      delete: getName("role-permission")?.delete,
-    },
-    admins: {
-      view: getName("admins")?.view,
-      edit: getName("admins")?.edit,
-      delete: getName("admins")?.delete,
-    },
-    settings: {
-      view: getName("settings")?.view,
-      edit: getName("settings")?.edit,
-      delete: getName("settings")?.delete,
-    },
-  };
+  const defaultValues = useMemo(() => generateDefaultValues(data), [data]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
     const { title, ...rest } = values;
