@@ -5,13 +5,16 @@ import { useState } from "react";
 import AddNotificationModal from "../components/ui/notification/AddNotificationModal";
 import MyDataGrid from "../components/dataGrid/MyDataGrid";
 import { GridColDef, GridValidRowModel } from "@mui/x-data-grid";
-import { TNotification } from "../types";
+import { TNotification, TPermissions } from "../types";
 import { useGetAllNotificationQuery } from "../redux/features/notification/notificationApi";
+import GetPermission from "../utils/getPermission";
+import { toast } from "sonner";
 
 const Notification = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
   const { data, isFetching } = useGetAllNotificationQuery(undefined);
   const rowsData: GridValidRowModel[] = data?.data || [];
+  const { edit } = GetPermission("notification") as TPermissions;
 
   const columns: GridColDef<TNotification>[] = [
     {
@@ -39,7 +42,15 @@ const Notification = () => {
       <HeaderTitle title="Notification" />
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <PageTitle title="Notification" />
-        <Button onClick={() => setIsAddModalOpen(true)}>
+        <Button
+          onClick={() => {
+            if (!edit) {
+              toast.error("You don't have permission");
+            } else {
+              setIsAddModalOpen(true);
+            }
+          }}
+        >
           Send Notification
         </Button>
       </Stack>

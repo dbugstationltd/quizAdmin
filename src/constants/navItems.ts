@@ -2,6 +2,7 @@ import {
   AccessibilityNewRounded,
   BarChartRounded,
   CategoryRounded,
+  DomainRounded,
   GridViewRounded,
   GroupsRounded,
   NotificationsRounded,
@@ -45,6 +46,11 @@ const navItems = [
     path: "/admins",
     title: "Admins",
     icon: SupervisorAccountRounded,
+  },
+  {
+    path: "/sub-domain",
+    title: "Sub Domain",
+    icon: DomainRounded,
   },
   {
     path: "/settings",

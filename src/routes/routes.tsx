@@ -15,6 +15,7 @@ import Admins from "../pages/Admins";
 import Notification from "../pages/Notification";
 import CreateRolePermission from "../pages/CreateRolePermission";
 import EditRolePermission from "../pages/EditRolePermission";
+import SubDomain from "../pages/SubDomain";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: "role-permission/create", element: <CreateRolePermission /> },
       { path: "role-permission/:id", element: <EditRolePermission /> },
       { path: "admins", element: <Admins /> },
+      { path: "sub-domain", element: <SubDomain /> },
       { path: "settings", element: <Settings /> },
     ],
   },

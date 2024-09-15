@@ -87,3 +87,17 @@ export type TMetaData = {
   totalAdmins: number;
   totalNotifications: number;
 };
+
+export type TSubDomain = {
+  id: number;
+  name: string;
+  url: string;
+  port: number;
+  directory: string;
+  gaCode: string;
+  showAdv: number;
+  addLimit: number;
+  addSecurity: number;
+  isArticle: number;
+  status: boolean;
+};

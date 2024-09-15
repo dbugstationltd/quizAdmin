@@ -15,6 +15,7 @@ import {
 } from "../redux/features/rolePermission/rolePermissionApi";
 import RCCheck from "../components/form/RCCheck";
 import { useMemo } from "react";
+import { paths } from "../constants";
 
 const generateDefaultValues = (data: any) => ({
   title: data?.data.title || "",
@@ -32,40 +33,10 @@ const EditRolePermission = () => {
   const { id } = useParams();
   const { data, isFetching } = useGetSingleRoleQuery(id as string);
   const [updateRole] = useUpdateRoleMutation();
-  const rowsData: GridValidRowModel[] = data?.data.roles || [
-    {
-      id: 1,
-      name: "dashboard",
-    },
-    {
-      id: 2,
-      name: "user-management",
-    },
-    {
-      id: 3,
-      name: "category",
-    },
-    {
-      id: 4,
-      name: "sub-category",
-    },
-    {
-      id: 5,
-      name: "notification",
-    },
-    {
-      id: 6,
-      name: "role-permission",
-    },
-    {
-      id: 7,
-      name: "admins",
-    },
-    {
-      id: 8,
-      name: "settings",
-    },
-  ];
+  const rowsData: GridValidRowModel[] = useMemo(
+    () => paths.map((path, i) => ({ id: i, name: path })),
+    []
+  );
 
   const columns: GridColDef<TPermissions>[] = [
     {

@@ -7,5 +7,6 @@ export const paths = [
   "notification",
   "role-permission",
   "admins",
+  "sub-domain",
   "settings",
 ];
