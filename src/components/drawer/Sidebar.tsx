@@ -29,7 +29,7 @@ const Sidebar = () => {
   return (
     <Box sx={{ bgcolor: "white", height: "100vh", px: "16px" }}>
       <Stack height={64} justifyContent="center" alignItems="center">
-        <img src={logoB} alt="Logo" />
+        <img src={logoB} alt="Logo" style={{ height: "35px" }} />
       </Stack>
       <List>
         {viewableNavItems.map((item, index) => (

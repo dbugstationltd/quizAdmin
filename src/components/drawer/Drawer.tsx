@@ -11,12 +11,15 @@ import Sidebar from "./Sidebar";
 import { Stack } from "@mui/material";
 import AccountMenu from "./AccountMenu";
 import { Outlet } from "react-router-dom";
+import { useAppSelector } from "../../redux/hooks";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 
 const drawerWidth = 285;
 
 const ResponsiveDrawer = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const user = useAppSelector(selectCurrentUser);
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -58,7 +61,7 @@ const ResponsiveDrawer = () => {
             <MenuIcon sx={{ color: "text.primary" }} />
           </IconButton>
           <Stack direction="row" alignItems="center" ml="auto">
-            <Typography variant="body2">User Name</Typography>
+            <Typography variant="body2">{user?.name}</Typography>
             <AccountMenu />
           </Stack>
         </Toolbar>

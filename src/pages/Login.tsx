@@ -53,7 +53,7 @@ const Login = () => {
         >
           <Stack justifyContent="center" alignItems="center">
             <img
-              src={`${import.meta.env.VITE_IMG_URL}/${
+              src={`${import.meta.env.VITE_IMG_URL}/setting/${
                 data?.data.webAppLogo
               }`}
               alt="logo"
