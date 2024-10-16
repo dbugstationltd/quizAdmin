@@ -41,6 +41,9 @@ export type TWebSettings = {
   bannerAd: string;
   rewardAd: string;
   interAd: string;
+  login_reg_reset_page_logo: string;
+  reg_page_title: string;
+  reset_password_page_title: string;
 };
 
 export type TUser = {
